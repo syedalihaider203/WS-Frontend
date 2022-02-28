@@ -1,13 +1,47 @@
 import {useRouter } from 'next/router'
+import Navbar from '../../component/navbar'
+import Footer from "../../component/footer"
+
 function ProductDetail({ProductDetail}){
     const router = useRouter()
 
     return(
         <>
-            {
-                ProductDetail.auctionId
-            }
+        <Navbar/>
+        <div>
+        <h1>Product Detail</h1>
+        {<div key={ProductDetail.auctionId} >
+            
+            <h3>{ProductDetail.vehicleType}</h3>
+            <div className="container">
+            <img width="600px" height="300px" src={ProductDetail.image_url} >
+        
+            </img>
+            
+           
+           
+            <table className='newtable'>
+                  
+                    <tr className='dataRow'>
+                        <td className='dataColumn'>{}</td>
+                        <td className='dataColumn'>Maria Anders</td>
+                    </tr>
+                    <tr className='dataRow'>
+                        <td className='dataColumn'>Centro comercial Moctezuma</td>
+                        <td className='dataColumn'>Francisco Chang</td>
+                    </tr>
+            </table>
 
+           
+            </div>
+            
+            </div>
+           
+
+        
+        }
+        </div>
+        <Footer/>
         </>
     )
 
@@ -29,7 +63,6 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps(context){
-    debugger
     const {params} = context
     const response  = await fetch(`http://127.0.0.1:8000/auction?auctionid=${params.product}`)
     const data = await response.json()
@@ -41,5 +74,7 @@ export async function getStaticProps(context){
     }
 
 }
+
+
 
 export default ProductDetail
