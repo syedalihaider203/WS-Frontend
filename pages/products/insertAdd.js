@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import Navbar from '../../component/navbar'
+import Footer from "../../component/footer"
 
 function insertAdd({vehicleList,modelList}){
     const [vehicelModel, setVehicleModel] = useState([])
@@ -48,6 +50,7 @@ function insertAdd({vehicleList,modelList}){
     }
     return (
         <>
+        <Navbar />
             <div className="container">
                 <h1 className="center"> Insert Details</h1>
                 <div>

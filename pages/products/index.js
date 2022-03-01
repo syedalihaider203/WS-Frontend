@@ -10,11 +10,8 @@ function Product({users}){
         <>
         <Navbar/>
         <div className="container">
-        <h1>Hello world</h1>
+        
         <div> 
-        <button type="button" className="btn btn-primary" onClick={() => router.push('products/insertAdd')}>
-              Primary button
-        </button>
         </div>
             {
                 users.map((user)=>{
