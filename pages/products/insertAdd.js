@@ -1,9 +1,9 @@
 import {useState} from 'react'
+import axios from 'axios'
 
 function insertAdd({vehicleList,modelList}){
     const [vehicelModel, setVehicleModel] = useState([])
     const onChange = event =>{
-        debugger
         var temp_list= []
         modelList.forEach((element)=>{
             if(element.make_id == Number(event.target.value)){
@@ -19,8 +19,10 @@ function insertAdd({vehicleList,modelList}){
 
 
     }
-    const registerAdd = async event => {
-        const formData = new FormData()
+    const registerAdd =async (event) => {
+        event.preventDefault()
+
+        var formData = new FormData()
         formData.append('seller',event.target.seller.value)
         formData.append('bodyStyle',event.target.primaryDamage.value)
         formData.append('primaryDamage',event.target.bodyStyle.value)
@@ -31,20 +33,25 @@ function insertAdd({vehicleList,modelList}){
         formData.append('engineType',event.target.engineType.value)
         formData.append('price',event.target.price.value)
         formData.append('image',event.target.uploadImage.files[0])
-        const  body = formData
-        const res  = await fetch(
-            'http://127.0.0.1:8000/auction',
+        debugger
+        
+        var res  = await fetch(
+            'http://localhost:8000/auction',
             {
-                body: body,
+                body: formData,
                 headers: {
-                    "Accept":"application/json"
+                    "Accept": 'application/json',
+                    // "content-Type": "multipart/form-data"
                 },
                 method: 'POST'
             }
         )
-
-        const result = await res.json()
+        debugger
+        console.log(res)
+        var response = await res.json()
         
+        console.log(response)
+        event.preventDefault()
     }
     return (
         <>
@@ -128,13 +135,11 @@ function insertAdd({vehicleList,modelList}){
 
 }
 export async function getStaticProps(){
-    const response  = await fetch('http://127.0.0.1:8000/vehicleMake')
+    const response  = await fetch('http://localhost:8000/vehicleMake')
     const data = await response.json()
 
-    const responseModel = await fetch('http://127.0.0.1:8000/vehicleModel')
+    const responseModel = await fetch('http://localhost:8000/vehicleModel')
     const modelData = await responseModel.json()
-
-    console.log(data)
     return {
         props : {
             vehicleList : data,

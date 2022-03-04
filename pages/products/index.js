@@ -31,7 +31,7 @@ function Product({users}){
 }
 
 export async function getStaticProps(){
-    const response  = await fetch('http://127.0.0.1:8000/auction')
+    const response  = await fetch('http://localhost:8000/auction')
     const data = await response.json()
     console.log(data)
     return {

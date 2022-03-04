@@ -47,7 +47,7 @@ function ProductDetail({ProductDetail}){
 
 }
 export async function getStaticPaths(){
-    const response = await fetch('http://127.0.0.1:8000/auction')
+    const response = await fetch('http://localhost:8000/auction')
     const data = await response.json()
     const paths = data.map((product) =>{
         return {
@@ -64,7 +64,7 @@ export async function getStaticPaths(){
 
 export async function getStaticProps(context){
     const {params} = context
-    const response  = await fetch(`http://127.0.0.1:8000/auction?auctionid=${params.product}`)
+    const response  = await fetch(`http://localhost:8000/auction?auctionid=${params.product}`)
     const data = await response.json()
     console.log(data)
     return {
