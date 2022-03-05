@@ -1,7 +1,5 @@
 import ProductDiv from '../../component/productdiv'
 import { useRouter } from 'next/router'
-
-
 import Navbar from '../../component/navbar'
 import Footer from '../../component/footer'
 function Product({users}){
@@ -10,12 +8,9 @@ function Product({users}){
         <>
         <Navbar/>
         <div className="container">
-        <h1>Hello world</h1>
-        <div> 
-        <button type="button" className="btn btn-primary" onClick={() => router.push('products/insertAdd')}>
-              Primary button
-        </button>
-        </div>
+        
+        </div> 
+        <div>
             {
                 users.map((user)=>{
                     return (
