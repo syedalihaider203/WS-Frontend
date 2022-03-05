@@ -5,7 +5,6 @@ import Footer from "../../component/footer"
 function insertAdd({vehicleList,modelList}){
     const [vehicelModel, setVehicleModel] = useState([])
     const onChange = event =>{
-        debugger
         var temp_list= []
         modelList.forEach((element)=>{
             if(element.make_id == Number(event.target.value)){

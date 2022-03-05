@@ -20,11 +20,12 @@ function ProductDiv({user}){
         </CardBody>
        
       </Card> */}
+      
    <div className="container mt-5 mb-5">
     <div className="d-flex justify-content-center row">
        <div className="col-md-10">
           <div className="row p-2 bg-white border rounded">
-             <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={user.image_url}>
+             <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={user.image_url[0]}>
                 </img>
              </div>
              <div className="col-md-6 mt-1">

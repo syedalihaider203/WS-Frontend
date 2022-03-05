@@ -7,6 +7,7 @@ function navbar(){
             <a href="/" class="active">Whale Shoe</a>
             <a href="/products">Used Cars</a>
             <a href="/products/insertAdd">Post Add</a>
+            <input type="text" class="active" placeholder="Search for names.."></input>
             
             </div>
       

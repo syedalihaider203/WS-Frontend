@@ -1,7 +1,5 @@
 import ProductDiv from '../../component/productdiv'
 import { useRouter } from 'next/router'
-
-
 import Navbar from '../../component/navbar'
 import Footer from '../../component/footer'
 function Product({users}){
@@ -11,8 +9,8 @@ function Product({users}){
         <Navbar/>
         <div className="container">
         
-        <div> 
-        </div>
+        </div> 
+        <div>
             {
                 users.map((user)=>{
                     return (

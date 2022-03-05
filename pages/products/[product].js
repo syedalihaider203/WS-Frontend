@@ -1,24 +1,28 @@
 import {useRouter } from 'next/router'
 import Navbar from '../../component/navbar'
 import Footer from "../../component/footer"
+import Images from "../../component/images"
 
 function ProductDetail({ProductDetail}){
     const router = useRouter()
-
+    var image_key=ProductDetail.image_url
     return(
         <>
-        <Navbar/>
+        <Navbar />
         <div>
         <h1>Product Detail</h1>
         {<div key={ProductDetail.auctionId} >
             
             <h3>{ProductDetail.vehicleType}</h3>
-            <div className="container">
-            <img width="600px" height="300px" src={ProductDetail.image_url} >
-        
-            </img>
+            <div className="well">
             
-           
+            {
+                image_key.map((user)=>{
+                    return (
+                        <Images user={user}/>
+                    );
+                })
+            }
            
             <table className='newtable'>
                   
