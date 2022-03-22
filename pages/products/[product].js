@@ -39,16 +39,20 @@ function ProductDetail({ProductDetail,bidData}){
     }
     const handleShow = () => setShow(true);
     const handleCancel = () => setShow(false)
+    var newObj = Object.keys(ProductDetail).splice(2,7)
+    var newobj1 = ["Price", "Seller", "Primary Damage", "Body Style", "Vehicle Type", "Vehicle Color", "Engine Type"];
+    var Objvalues=Object.values(ProductDetail).splice(2,7)
+    newObj=newobj1;
+    debugger
     return(
         <>
         <Navbar />
         <div>
         <h1>Product Detail</h1>
-        {<div key={ProductDetail.auctionId} >
+        {<div className="side" key={ProductDetail.auctionId} >
             
             <h3>{ProductDetail.vehicleType}</h3>
-            <div className="well">
-            
+            <div className='side1' >
             {
                 image_key.map((user)=>{
                     return (
@@ -56,19 +60,40 @@ function ProductDetail({ProductDetail,bidData}){
                     );
                 })
             }
-           
-            <table className='newtable'>
-                  
-                    <tr className='dataRow'>
-                        <td className='dataColumn'>{}</td>
-                        <td className='dataColumn'>Maria Anders</td>
+            </div>
+           <div className='side2'>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Car Information</th>
+                        <th></th>
                     </tr>
-                    <tr className='dataRow'>
-                        <td className='dataColumn'>Centro comercial Moctezuma</td>
-                        <td className='dataColumn'>Francisco Chang</td>
-                    </tr>
+                </thead>
+                <tbody >
+                <td>
+               {
+                  newObj.map((v)=>{
+                      return <tr>{v}</tr>
+                  })
+               }
+               </td>
+               <td>
+               {
+                    Objvalues.map((v)=>{
+                        return <tr>{v}</tr>
+                    })
+               }
+               </td> 
+                </tbody>
             </table>
-            <input type="text" value ={currentbid}/>
+ 
+
+
+            </div>
+            
+        </div>
+    }
+        <input type="text" value ={currentbid}/>
             <Button variant="primary" onClick={handleShow}>
             Launch demo modal
             </Button>
@@ -107,21 +132,14 @@ function ProductDetail({ProductDetail,bidData}){
                         </Button>
             </Modal.Body>
             </Modal>
-
-
-            </div>
-            
-            </div>
-           
-
-        
-        }
         </div>
+        <br />
         <Footer/>
         </>
     )
 
 }
+
 export async function getStaticPaths(){
     const response = await fetch('http://localhost:8080/auction')
     const data = await response.json()

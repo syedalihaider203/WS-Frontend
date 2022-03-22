@@ -1,4 +1,48 @@
 function ProductDiv({user}){
+   var date1= new Date(user.span);
+   var date2 =new Date();
+   debugger
+
+   function getDifferenceInDays(date1, date2){
+
+      var diffInMs = Math.abs(date2 - date1);
+      var exact_day = diffInMs / (1000 * 60 * 60 * 24);
+      var exact_hours = diffInMs / (1000*60*60);
+      var day=Math.round(exact_day);
+      console.log(exact_day)
+
+      if (exact_hours < 1){
+         //condition to check if posted within 1 hour
+         var mins = getDifferenceInMinutes(date1, date2)
+         return  `last updated ${mins} mins ago`
+      }
+      else if(exact_day < 1) {
+           //condition to check if posted ad has passed 1 hour
+        var hours=getDifferenceInHours(date1,date2);
+         return  `last updated ${hours} hours ago`
+      }
+      else if (day == 1) {
+         //condition to check if posted ad completed 1 day
+         return  `last updated ${day} day ago`
+      }
+      else if (day > 1 ) {
+          //condition to check if posted ad has crossed more than 1 day
+         return `last updated ${day} days ago`
+      }
+   }
+
+   function getDifferenceInHours(date1, date2) {
+      //function to calculate ad hours difference from current time and the time ad was posted
+      var diffInMs = Math.abs(date2 - date1);
+      return Math.round (diffInMs / (1000*60*60));
+    }
+
+   function getDifferenceInMinutes(date1, date2) {
+      //fuction to calculate ad minutes from current time and the time ad was posted
+      const diffInMs = Math.abs(date2 - date1);
+      return Math.round(diffInMs / (1000 * 60));
+    }
+
     return(
         <>
         
@@ -29,12 +73,12 @@ function ProductDiv({user}){
                 </img>
              </div>
              <div className="col-md-6 mt-1">
-              <h5>{user.vehicleType}</h5>
+              <a className="a-tag" href={`/products/${encodeURIComponent(user.auctionId)}`}>{user.vehicleType} for Auction </a>
                 <div className="mt-1 mb-1 spec-1">
-                   <span>{user.vehicleColor}</span>
-                   <span className="dot"></span>
-                   <span>{user.engineType}</span>
+                   <span>{user.vehicleColor} {user.engineType}cc </span><br />
+                
                 </div>
+                <span>{getDifferenceInDays(date1, date2)}</span>
                </div>
              <div className="align-items-center align-content-center col-md-3 border-left mt-1">
                 <div className="d-flex flex-row align-items-center">
@@ -51,10 +95,6 @@ function ProductDiv({user}){
        </div>
     </div>
  </div>
-
-
-
-
         </>
     )
 

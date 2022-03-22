@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import axios from 'axios'
 import Navbar from '../../component/navbar'
 
 function insertAdd({vehicleList,modelList}){
@@ -34,7 +33,6 @@ function insertAdd({vehicleList,modelList}){
         formData.append('engineType',event.target.engineType.value)
         formData.append('price',event.target.price.value)
         formData.append('image',event.target.uploadImage.files[0])
-        debugger
         
         var res  = await fetch(
             'http://localhost:8080/auction',
@@ -47,11 +45,8 @@ function insertAdd({vehicleList,modelList}){
                 method: 'POST'
             }
         )
-        debugger
-        console.log(res)
         var response = await res.json()
         
-        console.log(response)
         event.preventDefault()
     }
     return (
@@ -128,7 +123,9 @@ function insertAdd({vehicleList,modelList}){
                         <input type="file" id="myFile" name="uploadImage" />
                         <br />
                         <br />
-                        <button type="submit"  className="btn btn-primary">Register</button>
+                        <button type="submit"  className="btn btn-primary">
+                        
+                        </button>
                         </form>
                 </div>
             </div>
