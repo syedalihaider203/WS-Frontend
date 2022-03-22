@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import axios from 'axios'
 import Navbar from '../../component/navbar'
 import Footer from "../../component/footer"
 
@@ -35,10 +34,9 @@ function insertAdd({vehicleList,modelList}){
         formData.append('engineType',event.target.engineType.value)
         formData.append('price',event.target.price.value)
         formData.append('image',event.target.uploadImage.files[0])
-        debugger
         
         var res  = await fetch(
-            'http://localhost:8000/auction',
+            'http://localhost:8080/auction',
             {
                 body: formData,
                 headers: {
@@ -48,11 +46,8 @@ function insertAdd({vehicleList,modelList}){
                 method: 'POST'
             }
         )
-        debugger
-        console.log(res)
         var response = await res.json()
         
-        console.log(response)
         event.preventDefault()
     }
     return (
@@ -129,7 +124,9 @@ function insertAdd({vehicleList,modelList}){
                         <input type="file" id="myFile" name="uploadImage" />
                         <br />
                         <br />
-                        <button type="submit"  className="btn btn-primary">Register</button>
+                        <button type="submit"  className="btn btn-primary">
+                        
+                        </button>
                         </form>
                 </div>
             </div>
@@ -138,10 +135,10 @@ function insertAdd({vehicleList,modelList}){
 
 }
 export async function getStaticProps(){
-    const response  = await fetch('http://localhost:8000/vehicleMake')
+    const response  = await fetch('http://localhost:8080/vehicleMake')
     const data = await response.json()
 
-    const responseModel = await fetch('http://localhost:8000/vehicleModel')
+    const responseModel = await fetch('http://localhost:8080/vehicleModel')
     const modelData = await responseModel.json()
     return {
         props : {
