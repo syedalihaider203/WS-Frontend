@@ -1,15 +1,12 @@
 function ProductDiv({user}){
    var date1= new Date(user.span);
    var date2 =new Date();
-   debugger
-
    function getDifferenceInDays(date1, date2){
 
       var diffInMs = Math.abs(date2 - date1);
       var exact_day = diffInMs / (1000 * 60 * 60 * 24);
       var exact_hours = diffInMs / (1000*60*60);
       var day=Math.round(exact_day);
-      console.log(exact_day)
 
       if (exact_hours < 1){
          //condition to check if posted within 1 hour
@@ -45,25 +42,6 @@ function ProductDiv({user}){
 
     return(
         <>
-        
-        {/* <Card style={cardStyle}>
-        
-        <CardImg
-          alt="..."
-          src={user.image_url}
-        ></CardImg>
-       
-        <CardBody>
-          <CardTitle>{user.vehicleType}</CardTitle>
-          <CardText>
-            {user.engineType}
-          </CardText>
-          <Button color="primary" href={`/products/${encodeURIComponent(user.auctionId)}`}>
-            View Bid
-          </Button>
-        </CardBody>
-       
-      </Card> */}
       
    <div className="container mt-5 mb-5">
     <div className="d-flex justify-content-center row">

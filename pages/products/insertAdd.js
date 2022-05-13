@@ -2,7 +2,7 @@ import {useState} from 'react'
 import Navbar from '../../component/navbar'
 import Footer from "../../component/footer"
 
-function insertAdd({vehicleList,modelList}){
+function insertAdd({vehicleList,modelList}) {
     const [vehicelModel, setVehicleModel] = useState([])
     const onChange = event =>{
         var temp_list= []

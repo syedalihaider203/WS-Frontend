@@ -10,25 +10,24 @@ function ProductDetail({ProductDetail}){
     var newobj1 = ["Price", "Seller", "Primary Damage", "Body Style", "Vehicle Type", "Vehicle Color", "Engine Type"];
     var Objvalues=Object.values(ProductDetail).splice(2,7)
     newObj=newobj1;
-    debugger
     return(
         <>
         <Navbar />
-        <div>
         <h1>Product Detail</h1>
-        {<div className="side" key={ProductDetail.auctionId} >
-            
+        { <div className="side" key={ProductDetail.auctionId} >
             <h3>{ProductDetail.vehicleType}</h3>
-            <div className='side1' >
-            {
-                image_key.map((user)=>{
-                    return (
-                        <Images user={user}/>
-                    );
-                })
-            }
+            <div className='side1' >    
+                {
+                    image_key.map((user)=>{
+                        return (  
+                            <Images user={user}/>
+                        );
+                    })
+                }
             </div>
-           <div className='side2'>
+          </div>
+        }
+        <div className='side2'>
             <table class="styled-table">
                 <thead>
                     <tr>
@@ -53,19 +52,15 @@ function ProductDetail({ProductDetail}){
                </td> 
                 </tbody>
             </table>
-            </div>
-        </div>
-    }
         </div>
         <Footer/>
         </>
     )
-
 }
 
 export async function getStaticPaths(){
-    const response = await fetch('http://localhost:8080/auction')
-    const data = await response.json()
+    const response = await fetch('http://localhost:8080/auction');
+    const data = await response.json();
     const paths = data.map((product) =>{
         return {
             params: {
@@ -76,22 +71,19 @@ export async function getStaticPaths(){
     return{
         paths,
         fallback: false
-    }
+    }   
 }
 
 export async function getStaticProps(context){
-    const {params} = context
+    const {params} = context;
+    console.log('hi',context)
     const response  = await fetch(`http://localhost:8080/auction?auctionid=${params.product}`)
-    const data = await response.json()
-    console.log(data)
+    const data = await response.json();
     return {
         props : {
             ProductDetail : data,
         }
     }
-
 }
-
-
 
 export default ProductDetail
