@@ -1,20 +1,14 @@
 import ProductDiv from '../../component/productdiv'
-import { useRouter } from 'next/router'
-import {useState,useContext } from 'react'
 import Navbar from '../../component/navbar'
 import Footer from '../../component/footer'
+import Pagination from '../../component/pagination'
 
-function Product({users}) {
-    debugger
-    const router = useRouter()
-    const [pagevalue, setpagevalue] = useState(0)
-   
-
-    const handleClick = (e) => {
-       
-        setpagevalue(pagevalue=e.target.innerHTML)
-        router.push(`?page=${e.target.innerHTML}`)
+function Product({users,page}) {
+    var paginationList=[]
+    for (let i =0 ; i<page ; i++){
+        paginationList.push(i+1); //list created to map total number of pages against used-cars.
     }
+   
     return(
         <>
         <Navbar/>
@@ -28,16 +22,19 @@ function Product({users}) {
                     );
                 })
             }
-
         </div> 
         <div class="pagination">
         <a >&laquo;</a>
-        <a onClick={handleClick}>1</a>
-        <a class="active" onClick={handleClick}>2</a>
-        <a onClick={handleClick}>3</a>
-        <a onClick={handleClick}>4</a>
-        <a onClick={handleClick}>5</a>
-        <a onClick={handleClick}>6</a>
+        <div>
+        {
+            paginationList.map((pages) =>{
+                return (
+                    // populates dyanmic pagination div.
+                    <Pagination pages={pages}/>
+                )
+            })
+        }
+        </div>
         <a >&raquo;</a>
         </div>
         <Footer/>
@@ -45,17 +42,15 @@ function Product({users}) {
     )
 }
 
-export async function getStaticProps(context){
-    console.log(context)
-    // const mycontext=useContext(pagevalue)
-    // console.log(mycontext)
-    const response  = await fetch(`http://localhost:8080/auction?page=1`)
+export async function getServerSideProps(context){
+    const pageQuery = context.query.page
+    const response  = await fetch(`http://localhost:8080/auction?page=${pageQuery}`)
     const data = await response.json()
     return {
         props : {
-            users : data,
+            users : data.res,
+            page : data.pagecount //fetching total number of pages from server side to populate paginations divs
         }
     }
-
 }
 export default Product
