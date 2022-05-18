@@ -6,6 +6,8 @@ function ProductDiv({user}){
       var diffInMs = Math.abs(date2 - date1);
       var exact_day = diffInMs / (1000 * 60 * 60 * 24);
       var exact_hours = diffInMs / (1000*60*60);
+      var exact_months = diffInMs / (1000 * 60 * 60 * 24 * 30);
+      var round_Month = Math.round(exact_months);
       var day=Math.round(exact_day);
 
       if (exact_hours < 1){
@@ -22,23 +24,39 @@ function ProductDiv({user}){
          //condition to check if posted ad completed 1 day
          return  `last updated ${day} day ago`
       }
-      else if (day > 1 ) {
+      else if (day > 1 && day < 30) {
           //condition to check if posted ad has crossed more than 1 day
          return `last updated ${day} days ago`
       }
+      else if (round_Month == 1 )
+      {
+         return `last updated ${round_Month} month ago`
+      }
+      else if (round_Month > 1 )
+      {
+         return `last updated ${round_Month} months ago`
+      }
    }
-
    function getDifferenceInHours(date1, date2) {
       //function to calculate ad hours difference from current time and the time ad was posted
       var diffInMs = Math.abs(date2 - date1);
       return Math.round (diffInMs / (1000*60*60));
     }
-
    function getDifferenceInMinutes(date1, date2) {
       //fuction to calculate ad minutes from current time and the time ad was posted
       const diffInMs = Math.abs(date2 - date1);
       return Math.round(diffInMs / (1000 * 60));
     }
+
+
+
+
+
+
+
+
+
+
 
     return(
         <>
@@ -54,7 +72,6 @@ function ProductDiv({user}){
               <a className="a-tag" href={`/products/${encodeURIComponent(user.auctionId)}`}>{user.vehicleType} for Auction </a>
                 <div className="mt-1 mb-1 spec-1">
                    <span>{user.vehicleColor} {user.engineType}cc </span><br />
-                
                 </div>
                 <span>{getDifferenceInDays(date1, date2)}</span>
                </div>
@@ -63,10 +80,7 @@ function ProductDiv({user}){
                    <h4 className="mr-1">{user.price}</h4>
                 </div>
                 <div className="d-flex flex-column mt-4">
-                  
                     <a  className="btn btn-primary btn-sm" href={`/products/${encodeURIComponent(user.auctionId)}`}> View Bid</a>
-                 
-              
                 </div>
              </div>
           </div>

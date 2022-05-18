@@ -8,7 +8,6 @@ function Product({users,page}) {
     for (let i =0 ; i<page ; i++){
         paginationList.push(i+1); //list created to map total number of pages against used-cars.
     }
-   
     return(
         <>
         <Navbar/>
@@ -25,7 +24,7 @@ function Product({users,page}) {
         </div> 
         <div class="pagination">
         <a >&laquo;</a>
-        <div>
+        <div id='paginationGroup'>
         {
             paginationList.map((pages) =>{
                 return (

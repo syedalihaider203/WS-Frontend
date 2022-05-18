@@ -58,27 +58,30 @@ function ProductDetail({ProductDetail}){
     )
 }
 
-export async function getStaticPaths(){
-    const response = await fetch('http://localhost:8080/auction');
-    const data = await response.json();
-    const paths = data.map((product) =>{
-        return {
-            params: {
-                product : `${product.auctionId}`
-            }
-        }
-    })
-    return{
-        paths,
-        fallback: false
-    }   
-}
+// export async function getStaticPaths(){
+//     const response = await fetch('http://localhost:8080/auction');
+//     const data = await response.json();
+//     const res_data = data.res;
+//     // console.log(res_data)
+//     const paths = res_data.map((product) =>{
+//         console.log(product)
+//         return {
+//             params: {
+//                 product : `${product.auctionId}`
+//             }
+//         }
+//     })
+//     return{
+//         paths,
+//         fallback: false
+//     }   
+// }
 
-export async function getStaticProps(context){
+export async function getServerSideProps(context){
     const {params} = context;
-    console.log('hi',context)
     const response  = await fetch(`http://localhost:8080/auction?auctionid=${params.product}`)
     const data = await response.json();
+    console.log(data)
     return {
         props : {
             ProductDetail : data,

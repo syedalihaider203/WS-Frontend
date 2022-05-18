@@ -5,6 +5,7 @@ import {useState,useContext } from 'react'
 function pagination ({pages}) {
     const router = useRouter()
     const [pagevalue, setpagevalue] = useState(0);
+    
 
     const handleClick = (e) => {
         //query page clicked from pagination.
@@ -12,7 +13,9 @@ function pagination ({pages}) {
         setpagevalue(pagevalue=e.target.innerHTML)
         router.push(`?page=${e.target.innerHTML}`)
         var string = `.pagination${pagevalue}`
-        document.querySelector(string).classList.add('active');
+        if( !document.querySelector(string).classList.contains('active')){
+            document.querySelector(string).classList.add('active');
+        }  
     }
     return (
         <>
