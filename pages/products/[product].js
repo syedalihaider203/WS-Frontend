@@ -11,12 +11,16 @@ function ProductDetail({ProductDetail,bidData}){
     const router = useRouter()
     var image_key=ProductDetail.image_url
     const [show, setShow] = useState(false);
-    debugger
     const [auctionId,setAuctionId] = useState(ProductDetail.auctionId)
 
     const handleClose = (event) =>{
-        var formdata = new FormData();
         debugger
+        if(event.target.currentbid.value > event.target.bid.value){
+            debugger
+            alert("Bid should be greater than current bid ")
+            return
+        }
+        var formdata = new FormData();
         formdata.append("userid", event.target.userid.value);
         formdata.append("currentbid", event.target.currentbid.value);
         formdata.append("bid", event.target.bid.value);
@@ -43,7 +47,6 @@ function ProductDetail({ProductDetail,bidData}){
     var newobj1 = ["Price", "Seller", "Primary Damage", "Body Style", "Vehicle Type", "Vehicle Color", "Engine Type"];
     var Objvalues=Object.values(ProductDetail).splice(2,7)
     newObj=newobj1;
-    debugger
     return(
         <>
         <Navbar />
@@ -106,12 +109,12 @@ function ProductDetail({ProductDetail,bidData}){
             <form onSubmit={handleClose}>
                         <div className='formGroup'>
                             <label htmlFor="userid">User Id:</label><br />
-                            <input id="userid" type="text" className="form-control" autoComplete="name" required />
+                            <input id="userid" type="text" className="form-control" autoComplete="name" />
                         </div>
                         <br />
                         <div className='form-group'>
                             <label htmlFor="currentbid">Current Bid:</label><br />
-                            <input id="currentbid" type="text" className="form-control" autoComplete="name" required />
+                            <input id="currentbid" type="text" className="form-control" autoComplete="name" value={currentbid} readOnly/>
                         </div>
                         <br />
                         <div className='form-group'>
