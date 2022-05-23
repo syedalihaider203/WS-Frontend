@@ -12,10 +12,14 @@ function pagination ({pages}) {
         //apppends dynamic className ('active) when clicked on page. 
         setpagevalue(pagevalue=e.target.innerHTML)
         router.push(`?page=${e.target.innerHTML}`)
-        var string = `.pagination${pagevalue}`
-        if( !document.querySelector(string).classList.contains('active')){
-            document.querySelector(string).classList.add('active');
-        }  
+        var string = `.pagination${pagevalue}` //dynamic class name for clicked page anchor tag
+        var paginationLength = document.getElementById('paginationGroup').children.length
+        for ( let i=0; i<paginationLength; i++ ){
+            var valueNew = `.pagination${i+1}`; //dynamic class names
+            document.querySelector(valueNew).classList.remove('active'); //remove active clicked classes from other pages if clicked
+        }
+            document.querySelector(string).classList.add('active'); //add active class to clicked page.
+        
     }
     return (
         <>

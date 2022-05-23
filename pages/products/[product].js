@@ -2,6 +2,7 @@ import {useRouter } from 'next/router'
 import Navbar from '../../component/navbar'
 import Footer from "../../component/footer"
 import Images from "../../component/images"
+import {SERVER_URL} from '../../constants/url-strings'
 
 function ProductDetail({ProductDetail}){
     const router = useRouter()
@@ -79,7 +80,7 @@ function ProductDetail({ProductDetail}){
 
 export async function getServerSideProps(context){
     const {params} = context;
-    const response  = await fetch(`http://localhost:8080/auction?auctionid=${params.product}`)
+    const response  = await fetch(`${SERVER_URL}/auction?auctionid=${params.product}`)
     const data = await response.json();
     console.log(data)
     return {

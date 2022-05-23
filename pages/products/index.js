@@ -2,6 +2,7 @@ import ProductDiv from '../../component/productdiv'
 import Navbar from '../../component/navbar'
 import Footer from '../../component/footer'
 import Pagination from '../../component/pagination'
+import {SERVER_URL} from '../../constants/url-strings'
 
 function Product({users,page}) {
     var paginationList=[]
@@ -43,7 +44,7 @@ function Product({users,page}) {
 
 export async function getServerSideProps(context){
     const pageQuery = context.query.page
-    const response  = await fetch(`http://localhost:8080/auction?page=${pageQuery}`)
+    const response  = await fetch(`${SERVER_URL}/auction?page=${pageQuery}`)
     const data = await response.json()
     return {
         props : {

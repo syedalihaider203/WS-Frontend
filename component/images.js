@@ -6,5 +6,4 @@ function images ({user}) {
         </>
     )
 }
-
 export default images
