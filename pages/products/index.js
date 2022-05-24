@@ -1,14 +1,18 @@
 import ProductDiv from '../../component/productdiv'
-import { useRouter } from 'next/router'
 import Navbar from '../../component/navbar'
 import Footer from '../../component/footer'
-function Product({users}){
-    const router = useRouter()
+import Pagination from '../../component/pagination'
+import {SERVER_URL} from '../../constants/url-strings'
+
+function Product({users,page}) {
+    var paginationList=[]
+    for (let i =0 ; i<page ; i++){
+        paginationList.push(i+1); //list created to map total number of pages against used-cars.
+    }
     return(
         <>
         <Navbar/>
         <div className="container">
-        
         </div> 
         <div>
             {
@@ -18,24 +22,35 @@ function Product({users}){
                     );
                 })
             }
-
         </div> 
+        <div class="pagination">
+        <a >&laquo;</a>
+        <div id='paginationGroup'>
+        {
+            paginationList.map((pages) =>{
+                return (
+                    // populates dyanmic pagination div.
+                    <Pagination pages={pages}/>
+                )
+            })
+        }
+        </div>
+        <a >&raquo;</a>
+        </div>
         <Footer/>
         </>
     )
 }
 
-export async function getStaticProps(){
-    const response  = await fetch('http://localhost:8080/auction')
+export async function getServerSideProps(context){
+    const pageQuery = context.query.page
+    const response  = await fetch(`${SERVER_URL}/auction?page=${pageQuery}`)
     const data = await response.json()
-    console.log(data)
     return {
         props : {
-            users : data,
+            users : data.res,
+            page : data.pagecount //fetching total number of pages from server side to populate paginations divs
         }
     }
-
 }
-
-
 export default Product

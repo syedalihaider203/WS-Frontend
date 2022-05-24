@@ -2,6 +2,7 @@ import {useRouter } from 'next/router'
 import Navbar from '../../component/navbar'
 import Footer from "../../component/footer"
 import Images from "../../component/images"
+import {SERVER_URL} from '../../constants/url-strings'
 import { Button ,Modal} from 'react-bootstrap';
 import {useState} from 'react'
 
@@ -50,21 +51,21 @@ function ProductDetail({ProductDetail,bidData}){
     return(
         <>
         <Navbar />
-        <div>
         <h1>Product Detail</h1>
-        {<div className="side" key={ProductDetail.auctionId} >
-            
+        { <div className="side" key={ProductDetail.auctionId} >
             <h3>{ProductDetail.vehicleType}</h3>
-            <div className='side1' >
-            {
-                image_key.map((user)=>{
-                    return (
-                        <Images user={user}/>
-                    );
-                })
-            }
+            <div className='side1' >    
+                {
+                    image_key.map((user)=>{
+                        return (  
+                            <Images user={user}/>
+                        );
+                    })
+                }
             </div>
-           <div className='side2'>
+          </div>
+        }
+        <div className='side2'>
             <table class="styled-table">
                 <thead>
                     <tr>
@@ -90,12 +91,6 @@ function ProductDetail({ProductDetail,bidData}){
                 </tbody>
             </table>
  
-
-
-            </div>
-            
-        </div>
-    }
         <input type="text" value ={currentbid}/>
             <Button variant="primary" onClick={handleShow}>
             Launch demo modal
@@ -140,29 +135,31 @@ function ProductDetail({ProductDetail,bidData}){
         <Footer/>
         </>
     )
-
 }
 
-export async function getStaticPaths(){
-    const response = await fetch('http://localhost:8080/auction')
-    const data = await response.json()
-    const paths = data.map((product) =>{
-        return {
-            params: {
-                product : `${product.auctionId}`
-            }
-        }
-    })
-    return{
-        paths,
-        fallback: false
-    }
-}
+// export async function getStaticPaths(){
+//     const response = await fetch('http://localhost:8080/auction');
+//     const data = await response.json();
+//     const res_data = data.res;
+//     // console.log(res_data)
+//     const paths = res_data.map((product) =>{
+//         console.log(product)
+//         return {
+//             params: {
+//                 product : `${product.auctionId}`
+//             }
+//         }
+//     })
+//     return{
+//         paths,
+//         fallback: false
+//     }   
+// }
 
-export async function getStaticProps(context){
-    const {params} = context
-    const response  = await fetch(`http://localhost:8080/auction?auctionid=${params.product}`)
-    const data = await response.json()
+export async function getServerSideProps(context){
+    const {params} = context;
+    const response  = await fetch(`${SERVER_URL}/auction?auctionid=${params.product}`)
+    const data = await response.json();
     console.log(data)
     const responseBid = await fetch(`http://localhost:8080/bid?auctionid=${params.product}`) 
     const biddata = await responseBid.json()
@@ -173,9 +170,6 @@ export async function getStaticProps(context){
             bidData : biddata
         }
     }
-
 }
-
-
 
 export default ProductDetail

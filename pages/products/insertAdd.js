@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import Navbar from '../../component/navbar'
 
-function insertAdd({vehicleList,modelList}){
+function insertAdd({vehicleList,modelList}) {
     const [vehicelModel, setVehicleModel] = useState([])
     const onChange = event =>{
         var temp_list= []
@@ -45,6 +45,7 @@ function insertAdd({vehicleList,modelList}){
                 method: 'POST'
             }
         )
+        debugger
         var response = await res.json()
         
         event.preventDefault()
@@ -124,11 +125,12 @@ function insertAdd({vehicleList,modelList}){
                         <br />
                         <br />
                         <button type="submit"  className="btn btn-primary">
-                        
+                        Submit
                         </button>
                         </form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 
