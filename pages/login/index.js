@@ -12,8 +12,10 @@ function login(){
     const [isAutenticated,setUserAuthentication] = useState()
     useEffect(() => {
         // Update the document title using the browser API
-        document.title = `You clicked ${count} times`;
-      });
+        if(checkCookies("token")){
+            router.push("/")
+        }
+    },[]);
 
     const handleSubmit = (event) => {
         event.preventDefault()
