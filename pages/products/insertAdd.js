@@ -46,6 +46,7 @@ function insertAdd({vehicleList,modelList}) {
                 method: 'POST'
             }
         )
+        debugger
         var response = await res.json()
         
         event.preventDefault()
@@ -125,11 +126,12 @@ function insertAdd({vehicleList,modelList}) {
                         <br />
                         <br />
                         <button type="submit"  className="btn btn-primary">
-                        
+                        Submit
                         </button>
                         </form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 

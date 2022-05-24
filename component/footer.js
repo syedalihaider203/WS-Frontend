@@ -16,13 +16,13 @@ function footer () {
         	<div class="col-md-4 footer-nav animated fadeInUp">
             	
             	<div class="col-md-6">
-                    <ul class="pages">
+                    {/* <ul class="pages">
                         <li><a href="#">Cars By Make </a></li>
                         <li><a href="#">Cars By City</a></li>
                         <li><a href="#">Cars By Category</a></li>
                         <li><a href="#">Cars By Body Type</a></li>
                         <li><a href="#">Cars By Color</a></li>
-                    </ul>
+                    </ul> */}
                 </div>
             	<div class="col-md-6">
                     <ul class="list">
@@ -45,12 +45,12 @@ function footer () {
             	<h4>Newsletter</h4>
                 <p>Updates To Win Bids</p>
                 <p>
-                    <div class="input-group">
+                    {/* <div class="input-group">
                       <input type="text" class="form-control" placeholder="Search for..."></input>
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
                       </span>
-                    </div>
+                    </div> */}
                  </p>
             </div>
         </div>

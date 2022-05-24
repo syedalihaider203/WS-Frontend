@@ -48,7 +48,7 @@ function ProductDiv({user}){
       return Math.round(diffInMs / (1000 * 60));
     }
    
-   function countDown (date2) {
+   // function countDown (date2) {
       // var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
       // var now = new Date(date2).getTime();
       // var distance = countDownDate - now;
@@ -60,7 +60,7 @@ function ProductDiv({user}){
 
       // return `${days}d ${hours} h ${minutes}m ${seconds}s `
 
-   }
+   // }
 
    // setInterval(() => {
    //    // countDown(date2);
@@ -82,7 +82,7 @@ function ProductDiv({user}){
                    <span>{user.vehicleColor} {user.engineType}cc </span><br />
                 </div>
                 <span>{getDifferenceInDays(date1, date2)}</span><br/>
-                <span >{countDown(date2)}</span>
+                {/* <span >{countDown(date2)}</span> */}
                </div>
              <div className="align-items-center align-content-center col-md-3 border-left mt-1">
                 <div className="d-flex flex-row align-items-center">
