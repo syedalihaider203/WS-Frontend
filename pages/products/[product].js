@@ -33,7 +33,7 @@ function ProductDetail({ProductDetail,bidData}){
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8080/bid", requestOptions)
+        fetch(`${SERVER_URL}/bid`, requestOptions)
         .then(response => response.json())
         .then(result => {
             console.log(result)
@@ -161,7 +161,7 @@ export async function getServerSideProps(context){
     const response  = await fetch(`${SERVER_URL}/auction?auctionid=${params.product}`)
     const data = await response.json();
     console.log(data)
-    const responseBid = await fetch(`http://localhost:8080/bid?auctionid=${params.product}`) 
+    const responseBid = await fetch(`${SERVER_URL}/bid?auctionid=${params.product}`) 
     const biddata = await responseBid.json()
 
     return {

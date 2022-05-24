@@ -3,6 +3,7 @@ import Footer from '../../component/footer'
 import { useRouter } from 'next/router'
 import { Form ,Button} from 'react-bootstrap';
 import {useState} from 'react'
+import {SERVER_URL} from '../../constants/url-strings'
 
 
 function registration(){
@@ -32,7 +33,7 @@ function registration(){
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/auth/users/", requestOptions)
+        fetch(`${SERVER_URL}/auth/users/`, requestOptions)
         .then(response =>{ 
             debugger
             response.text()})

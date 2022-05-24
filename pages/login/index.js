@@ -5,6 +5,7 @@ import { Form ,Button} from 'react-bootstrap';
 import {setUserToken} from '../../helperfunctions/loginhelper'
 import { useState,useEffect } from 'react';
 import { checkCookies } from 'cookies-next';
+import {SERVER_URL} from '../../constants/url-strings'
 
 
 function login(){
@@ -34,7 +35,7 @@ function login(){
             redirect: 'follow'
         };
     
-        fetch("http://127.0.0.1:8000/auth/jwt/create/", requestOptions)
+        fetch(`${SERVER_URL}/auth/jwt/create/`, requestOptions)
         .then(response => 
             response.text()
         )

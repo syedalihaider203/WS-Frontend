@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import Navbar from '../../component/navbar'
+import {SERVER_URL} from '../../constants/url-strings'
 
 function insertAdd({vehicleList,modelList}) {
     const [vehicelModel, setVehicleModel] = useState([])
@@ -35,7 +36,7 @@ function insertAdd({vehicleList,modelList}) {
         formData.append('image',event.target.uploadImage.files[0])
         
         var res  = await fetch(
-            'http://localhost:8080/auction',
+            `${SERVER_URL}/auction`,
             {
                 body: formData,
                 headers: {
@@ -136,10 +137,10 @@ function insertAdd({vehicleList,modelList}) {
 
 }
 export async function getStaticProps(){
-    const response  = await fetch('http://localhost:8080/vehicleMake')
+    const response  = await fetch(`${SERVER_URL}/vehicleMake`)
     const data = await response.json()
 
-    const responseModel = await fetch('http://localhost:8080/vehicleModel')
+    const responseModel = await fetch( `${SERVER_URL}/vehicleModel`)
     const modelData = await responseModel.json()
     return {
         props : {
