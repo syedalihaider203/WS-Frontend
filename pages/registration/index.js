@@ -12,6 +12,7 @@ function registration(){
 
     const handleSubmit = async (event) =>{
         debugger
+        event.preventDefault()
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
