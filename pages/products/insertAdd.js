@@ -1,8 +1,17 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import Navbar from '../../component/navbar'
+import { getCookie,checkCookies } from 'cookies-next';
 
 function insertAdd({vehicleList,modelList}) {
     const [vehicelModel, setVehicleModel] = useState([])
+    const [seller , setSeller] = useState("")
+
+    useEffect(() => {
+        // Update the document title using the browser API
+        if(checkCookies("token")&& checkCookies("username")&& checkCookies("email")){
+            setSeller(getCookie("username"))
+        }
+    },[]);
     const onChange = event =>{
         var temp_list= []
         modelList.forEach((element)=>{
@@ -35,20 +44,18 @@ function insertAdd({vehicleList,modelList}) {
         formData.append('image',event.target.uploadImage.files[0])
         
         var res  = await fetch(
-            'http://localhost:8080/auction',
+            'http://localhost:8000/auction',
             {
                 body: formData,
                 headers: {
                     "Accept": 'application/json',
-                    // "content-Type": "multipart/form-data"
+                    //"content-Type": "multipart/form-data"
                 },
                 method: 'POST'
             }
         )
         debugger
-        var response = await res.json()
-        
-        event.preventDefault()
+        var response = await res.json()        
     }
     return (
         <>
@@ -59,7 +66,7 @@ function insertAdd({vehicleList,modelList}) {
                     <form onSubmit={registerAdd}>
                         <div className='formGroup'>
                             <label htmlFor="name">Seller:</label><br />
-                            <input id="seller" type="text" className="form-control" autoComplete="name" required />
+                            <input id="seller" type="text" className="form-control" autoComplete="name" value={seller} required />
                         </div>
                         <br />
                         <div className='form-group'>
@@ -130,16 +137,15 @@ function insertAdd({vehicleList,modelList}) {
                         </form>
                 </div>
             </div>
-            <Footer />
         </>
     )
 
 }
 export async function getStaticProps(){
-    const response  = await fetch('http://localhost:8080/vehicleMake')
+    const response  = await fetch('http://localhost:8000/vehicleMake')
     const data = await response.json()
 
-    const responseModel = await fetch('http://localhost:8080/vehicleModel')
+    const responseModel = await fetch('http://localhost:8000/vehicleModel')
     const modelData = await responseModel.json()
     return {
         props : {

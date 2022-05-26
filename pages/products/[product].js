@@ -4,20 +4,27 @@ import Footer from "../../component/footer"
 import Images from "../../component/images"
 import {SERVER_URL} from '../../constants/url-strings'
 import { Button ,Modal} from 'react-bootstrap';
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
+import { getCookie,checkCookies } from 'cookies-next';
 
 
 function ProductDetail({ProductDetail,bidData}){
     const [currentbid,setCurrentBid] = useState(bidData.currentbid)
+    const [seller,setSeller] = useState("")
+
+    useEffect(() => {
+        // Update the document title using the browser API
+        if(checkCookies("token")&& checkCookies("username")&& checkCookies("email")){
+            setSeller(getCookie("username"))
+        }
+    },[]);
     const router = useRouter()
     var image_key=ProductDetail.image_url
     const [show, setShow] = useState(false);
     const [auctionId,setAuctionId] = useState(ProductDetail.auctionId)
 
     const handleClose = (event) =>{
-        debugger
         if(event.target.currentbid.value > event.target.bid.value){
-            debugger
             alert("Bid should be greater than current bid ")
             return
         }
@@ -33,7 +40,7 @@ function ProductDetail({ProductDetail,bidData}){
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8080/bid", requestOptions)
+        fetch("http://127.0.0.1:8000/bid", requestOptions)
         .then(response => response.json())
         .then(result => {
             console.log(result)
@@ -103,8 +110,8 @@ function ProductDetail({ProductDetail,bidData}){
             <Modal.Body>
             <form onSubmit={handleClose}>
                         <div className='formGroup'>
-                            <label htmlFor="userid">User Id:</label><br />
-                            <input id="userid" type="text" className="form-control" autoComplete="name" />
+                            <label htmlFor="userid">User:</label><br />
+                            <input id="userid" type="text" className="form-control" value={seller} autoComplete="name" readOnly/>
                         </div>
                         <br />
                         <div className='form-group'>
@@ -137,31 +144,11 @@ function ProductDetail({ProductDetail,bidData}){
     )
 }
 
-// export async function getStaticPaths(){
-//     const response = await fetch('http://localhost:8080/auction');
-//     const data = await response.json();
-//     const res_data = data.res;
-//     // console.log(res_data)
-//     const paths = res_data.map((product) =>{
-//         console.log(product)
-//         return {
-//             params: {
-//                 product : `${product.auctionId}`
-//             }
-//         }
-//     })
-//     return{
-//         paths,
-//         fallback: false
-//     }   
-// }
-
 export async function getServerSideProps(context){
     const {params} = context;
     const response  = await fetch(`${SERVER_URL}/auction?auctionid=${params.product}`)
-    const data = await response.json();
-    console.log(data)
-    const responseBid = await fetch(`http://localhost:8080/bid?auctionid=${params.product}`) 
+    const data = await response.json()
+    const responseBid = await fetch(`http://localhost:8000/bid?auctionid=${params.product}`)
     const biddata = await responseBid.json()
 
     return {
