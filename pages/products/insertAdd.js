@@ -5,6 +5,7 @@ import { getCookie,checkCookies } from 'cookies-next';
 function insertAdd({vehicleList,modelList}) {
     const [vehicelModel, setVehicleModel] = useState([])
     const [seller , setSeller] = useState("")
+    const [uploadImage,setUploadImage] = useState()
 
     useEffect(() => {
         // Update the document title using the browser API
@@ -12,6 +13,10 @@ function insertAdd({vehicleList,modelList}) {
             setSeller(getCookie("username"))
         }
     },[]);
+    const selectFile = (event) =>{
+        setUploadImage(URL.createObjectURL(event.target.files[0]))
+
+    }
     const onChange = event =>{
         var temp_list= []
         modelList.forEach((element)=>{
@@ -42,7 +47,7 @@ function insertAdd({vehicleList,modelList}) {
         formData.append('engineType',event.target.engineType.value)
         formData.append('price',event.target.price.value)
         formData.append('image',event.target.uploadImage.files[0])
-        
+
         var res  = await fetch(
             'http://localhost:8000/auction',
             {
@@ -54,8 +59,11 @@ function insertAdd({vehicleList,modelList}) {
                 method: 'POST'
             }
         )
-        debugger
         var response = await res.json()        
+    }
+    const style = {
+        width: "50px",
+        height: "50px"
     }
     return (
         <>
@@ -128,7 +136,8 @@ function insertAdd({vehicleList,modelList}) {
                             <input id="price" type="number" className="form-control" autoComplete="name" required />
                         </div>
                         <br />
-                        <input type="file" id="myFile" name="uploadImage" />
+                        <input type="file" id="myFile" name="uploadImage" onChange={selectFile} />
+                        <img src={uploadImage} style={style}></img>
                         <br />
                         <br />
                         <button type="submit"  className="btn btn-primary">
