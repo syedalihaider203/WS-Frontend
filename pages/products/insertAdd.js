@@ -1,7 +1,8 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import Navbar from '../../component/navbar'
 import {SERVER_URL} from '../../constants/url-strings'
 import Footer from "../../component/footer"
+import { getCookie,checkCookies } from 'cookies-next';
 
 function insertAdd({vehicleList,modelList, modelYear, modelTransmission, modelEngine, modelAssembly}) {
     const [vehicelModel, setVehicleModel] = useState([])
@@ -41,6 +42,20 @@ function insertAdd({vehicleList,modelList, modelYear, modelTransmission, modelEn
         assembly_list.push(requiredObj)
     })
 
+    const [seller , setSeller] = useState("")
+    const [uploadImage,setUploadImage] = useState()
+
+    useEffect(() => {
+        // Update the document title using the browser API
+        if(checkCookies("token")&& checkCookies("username")&& checkCookies("email")){
+            setSeller(getCookie("username"))
+        }
+    },[]);
+    const selectFile = (event) =>{
+        setUploadImage(URL.createObjectURL(event.target.files[0]))
+
+    }
+
     const onChange = event =>{
         var temp_list= []
         modelList.forEach((element)=>{
@@ -74,21 +89,23 @@ function insertAdd({vehicleList,modelList, modelYear, modelTransmission, modelEn
         formData.append('engineType',event.target.engineType.value)
         formData.append('price',event.target.price.value)
         formData.append('image',event.target.uploadImage.files[0])
-        
+
         var res  = await fetch(
             `${SERVER_URL}/auction`,
             {
                 body: formData,
                 headers: {
                     "Accept": 'application/json',
-                    // "content-Type": "multipart/form-data"
+                    //"content-Type": "multipart/form-data"
                 },
                 method: 'POST'
             }
         )
-        var response = await res.json()
-        
-        event.preventDefault()
+        var response = await res.json()        
+    }
+    const style = {
+        width: "50px",
+        height: "50px"
     }
     return (
         <>
@@ -99,7 +116,7 @@ function insertAdd({vehicleList,modelList, modelYear, modelTransmission, modelEn
                     <form onSubmit={registerAdd}>
                         <div className='formGroup'>
                             <label htmlFor="name">Seller:</label><br />
-                            <input id="seller" type="text" className="form-control" autoComplete="name" required />
+                            <input id="seller" type="text" className="form-control" autoComplete="name" value={seller} required />
                         </div>
                         <br />
                         <div className='form-group'>
@@ -225,7 +242,8 @@ function insertAdd({vehicleList,modelList, modelYear, modelTransmission, modelEn
                             <input id="description" type="text" className="form-control" autoComplete="name" required />
                         </div>
                         <br />
-                        <input type="file" id="myFile" name="uploadImage" />
+                        <input type="file" id="myFile" name="uploadImage" onChange={selectFile} />
+                        <img src={uploadImage} style={style}></img>
                         <br />
                         <br />
                         <button type="submit"  className="btn btn-primary">
@@ -235,7 +253,6 @@ function insertAdd({vehicleList,modelList, modelYear, modelTransmission, modelEn
                         </form>
                 </div>
             </div>
-            <Footer />
         </>
     )
 
