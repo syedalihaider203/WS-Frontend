@@ -1,4 +1,5 @@
 function ProductDiv({user}){
+   
    var date1= new Date(user.span);
    var date2 =new Date();
    function getDifferenceInDays(date1, date2){
@@ -77,9 +78,9 @@ function ProductDiv({user}){
                 </img>
              </div>
              <div className="col-md-6 mt-1">
-              <a className="a-tag" href={`/products/${encodeURIComponent(user.auctionId)}`}>{user.vehicleType} for Auction </a>
+              <a className="a-tag" href={`/products/${encodeURIComponent(user.auctionId)}`}>{user.adTitle} for Auction </a>
                 <div className="mt-1 mb-1 spec-1">
-                   <span>{user.vehicleColor} {user.engineType}cc </span><br />
+                   <span>{user.modelYear} | {user.mileage}  | {user.engineType} | {user.engineCapacity}cc | {user.engineTransmission} </span><br />
                 </div>
                 <span>{getDifferenceInDays(date1, date2)}</span><br/>
                 {/* <span >{countDown(date2)}</span> */}

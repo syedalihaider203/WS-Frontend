@@ -15,9 +15,7 @@ function ProductDetail({ProductDetail,bidData}){
     const [auctionId,setAuctionId] = useState(ProductDetail.auctionId)
 
     const handleClose = (event) =>{
-        debugger
         if(event.target.currentbid.value > event.target.bid.value){
-            debugger
             alert("Bid should be greater than current bid ")
             return
         }
@@ -44,9 +42,9 @@ function ProductDetail({ProductDetail,bidData}){
     }
     const handleShow = () => setShow(true);
     const handleCancel = () => setShow(false)
-    var newObj = Object.keys(ProductDetail).splice(2,7)
-    var newobj1 = ["Price", "Seller", "Primary Damage", "Body Style", "Vehicle Type", "Vehicle Color", "Engine Type"];
-    var Objvalues=Object.values(ProductDetail).splice(2,7)
+    var newObj = Object.keys(ProductDetail).splice(2,14)
+    var newobj1 = ["Ad Title", "Price", "Seller", "Primary Damage", "Model Year", "Vehicle Make", "Vehicle Model", "Mileage" ,"Engine Transmission", "Vehicle Color", "Engine Capacity", "Engine Type","Assembly"," Description"];
+    var Objvalues=Object.values(ProductDetail).splice(2,14)
     newObj=newobj1;
     return(
         <>

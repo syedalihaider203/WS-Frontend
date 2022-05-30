@@ -12,7 +12,6 @@ function registration(){
     const [password,setPassword] =useState('')
 
     const handleSubmit = async (event) =>{
-        debugger
         event.preventDefault()
 
         var myHeaders = new Headers();
@@ -35,14 +34,11 @@ function registration(){
 
         fetch(`${SERVER_URL}/auth/users/`, requestOptions)
         .then(response =>{ 
-            debugger
             response.text()})
         .then(result => {
-            debugger
             console.log(result)
         })
         .catch(error => {
-            debugger
             console.log('error', error)
         });
 

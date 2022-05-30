@@ -41,12 +41,9 @@ function login(){
         )
         .then(result =>{ 
             var obj = JSON.parse(result)
-            debugger
             if(obj.hasOwnProperty("access") && obj.hasOwnProperty("refresh")){
                 var isAutenticated = setUserToken(obj)
             }
-            console.log(result)
-            debugger
             if(isAutenticated){
                 router.push("/")
 
