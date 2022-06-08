@@ -7,7 +7,6 @@ import { useState,useEffect } from 'react';
 import { checkCookies } from 'cookies-next';
 import {SERVER_URL} from '../../constants/url-strings'
 
-
 function login(){
     const router = useRouter()
     const [isAutenticated,setUserAuthentication] = useState()
@@ -77,7 +76,7 @@ function login(){
             <Navbar />
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>User Name</Form.Label>
                     <Form.Control type="text" placeholder="Enter email" id="userEmail" />
                     <Form.Text className="text-muted">
                         We'll never share your email with anyone else.

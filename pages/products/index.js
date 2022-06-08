@@ -27,7 +27,7 @@ function Product({users,page}) {
         <a >&laquo;</a>
         <div id='paginationGroup'>
         {
-            paginationList.map((pages) =>{
+            paginationList.map((pages) =>{  
                 return (
                     // populates dyanmic pagination div.
                     <Pagination pages={pages}/>

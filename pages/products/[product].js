@@ -58,7 +58,7 @@ function ProductDetail({ProductDetail,bidData}){
     return(
         <>
         <Navbar />
-        <h1>Product Detail</h1>
+        <h1>{ProductDetail.adTitle}</h1>
         { <div className="side" key={ProductDetail.auctionId} >
             <h3>{ProductDetail.vehicleType}</h3>
             <div className='side1' >    

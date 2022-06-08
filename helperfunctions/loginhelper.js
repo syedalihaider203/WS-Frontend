@@ -9,7 +9,8 @@ export function setUserToken(args){
     }
 }
 
-export function destroyUserToken(){
+export function destroyUserToken() {
+    
     removeCookies("token")
 
 }

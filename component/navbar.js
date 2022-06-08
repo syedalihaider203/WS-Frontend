@@ -7,6 +7,7 @@ function navbar(){
     const [username, setUserName] = useState("")
     useEffect(() => {
         // Update the document title using the browser API
+        // setUserName(getCookie("username"))
         if(checkCookies("token")&& checkCookies("username")&& checkCookies("email")){
             setUserName(getCookie("username"))
         }
@@ -27,12 +28,12 @@ function navbar(){
         <>
             <div class="topnav" id="myTopnav">
             
-            <a href="/" class="active" style={style}>{username}</a>
+            <a href="/" class="active" >Whale Shoe</a>
             <a href="/products">Used Cars</a>
-            <a href="/products/insertAdd">Post Add</a>
+            <a href="/products/insertAdd">Post an Auction</a>
             <a onClick={userLogout}>Log out</a>
-
             <input type="text" class="active" placeholder="Search for names.."></input>
+            <a >{username}</a>
             
             </div>
       

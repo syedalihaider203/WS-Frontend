@@ -1,7 +1,13 @@
+import { useEffect, useState } from 'react';
+
+
+
 function ProductDiv({user}){
    
+   var closingDate = new Date(user.closingDate);
    var date1= new Date(user.span);
-   var date2 =new Date();
+   var date2 = new Date();
+ 
    function getDifferenceInDays(date1, date2){
 
       var diffInMs = Math.abs(date2 - date1);
@@ -49,23 +55,38 @@ function ProductDiv({user}){
       return Math.round(diffInMs / (1000 * 60));
     }
    
-   // function countDown (date2) {
-      // var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
-      // var now = new Date(date2).getTime();
-      // var distance = countDownDate - now;
+   // Countdown timer work 
+   function countDown (closingDate) {
+      var countDownDate = closingDate; //5 days from the time ad was posted
+      var now =  new Date(); //curent time.
+      var distance = countDownDate - now;
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      // var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (minutes< 0 && seconds < 0 ){
+         return `Auction Expired`
+      } else if ( days == 0 ){
+         return ` Auction Ends in ${hours} h ${minutes}m ${seconds}s `
+      }
+      else if ( days == 0 && hours == 0 ){
+         return ` Auction Ends in ${minutes}m ${seconds}s `
+      }
+      else if ( days == 0 && hours == 0 && minutes == 0 ){
+         return ` Auction Ends in ${seconds}s `
+      }
+      else {
+         return ` Auction Ends in ${days}d ${hours} h ${minutes}m ${seconds}s `
+      }
+   }
 
-      // return `${days}d ${hours} h ${minutes}m ${seconds}s `
-
-   // }
-
-   // setInterval(() => {
-   //    // countDown(date2);
-   //  }, 1000);
+   useEffect(() => {
+   setInterval(() => {
+     var counterUpdate= countDown(closingDate);
+      document.getElementById('realTimer').innerHTML = counterUpdate
+    }, 1000);
+   }, [closingDate]);
 
     return(
         <>
@@ -82,8 +103,8 @@ function ProductDiv({user}){
                 <div className="mt-1 mb-1 spec-1">
                    <span>{user.modelYear} | {user.mileage}  | {user.engineType} | {user.engineCapacity}cc | {user.engineTransmission} </span><br />
                 </div>
-                <span>{getDifferenceInDays(date1, date2)}</span><br/>
-                {/* <span >{countDown(date2)}</span> */}
+                <span >{getDifferenceInDays(date1, date2)}</span><br/>
+                <span id="realTimer" > {countDown(closingDate)}</span>
                </div>
              <div className="align-items-center align-content-center col-md-3 border-left mt-1">
                 <div className="d-flex flex-row align-items-center">
