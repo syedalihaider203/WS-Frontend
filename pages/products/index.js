@@ -5,6 +5,7 @@ import Pagination from '../../component/pagination'
 import {SERVER_URL} from '../../constants/url-strings'
 
 function Product({users,page}) {
+    debugger
     var paginationList=[]
     for (let i =0 ; i<page ; i++){
         paginationList.push(i+1); //list created to map total number of pages against used-cars.
@@ -43,9 +44,18 @@ function Product({users,page}) {
 }
 
 export async function getServerSideProps(context){
+    const searchQuery=context.query.vehicleMake
     const pageQuery = context.query.page
-    const response  = await fetch(`${SERVER_URL}/auction?page=${pageQuery}`)
-    const data = await response.json()
+    if(searchQuery) {
+    const newResponse  = await fetch(`${SERVER_URL}/search/?vehicleModel=${searchQuery}`)
+    var data = await newResponse.json()
+    console.log(data)
+    } else {
+        var response = await fetch(`${SERVER_URL}/auction?page=${pageQuery}`)
+        var data = await response.json()
+    }
+    
+    
     return {
         props : {
             users : data.res,

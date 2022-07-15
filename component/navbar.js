@@ -20,6 +20,11 @@ function navbar(){
         }
         
     }
+    const callSearch =(event) => {
+        if (event.charCode == 13) {
+         router.push(`?vehicleMake=${event.target.value}`)
+        }
+    } 
     const style = {
         pointerEvents:'none'
 
@@ -32,7 +37,7 @@ function navbar(){
             <a href="/products">Used Cars</a>
             <a href="/products/insertAdd">Post an Auction</a>
             <a onClick={userLogout}>Log out</a>
-            <input type="text" class="active" placeholder="Search for names.."></input>
+            <input  id="searchBar" type="text" class="active" onKeyPress={callSearch} placeholder="Search for names.."></input>
             <a >{username}</a>
             
             </div>
